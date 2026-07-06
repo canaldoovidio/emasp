@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aula 1 - Parte 2 | Dados como Ativo Estratégico</title>
+  <style>
+:root {
+  --orange:#f2761d;
+  --orange-dark:#d85f08;
+  --ink:#1d1d1f;
+  --muted:#667085;
+  --blue:#2f5597;
+  --teal:#0f766e;
+  --green:#2f855a;
+  --purple:#6f42c1;
+  --slate:#eef3f6;
+  --line:#d7dee8;
+  --white:#ffffff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at top right, rgba(242,118,29,.18), transparent 28rem),
+    linear-gradient(180deg,#fff 0%,#f7f9fb 100%);
+  line-height:1.58;
+}
+.topbar{height:8px;background:linear-gradient(90deg,var(--orange),#ffb000,var(--orange-dark))}
+header{
+  padding:34px 6vw 44px;
+  background:linear-gradient(135deg,var(--orange) 0%,#f18b2f 52%,#ffb13d 100%);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+header:after{
+  content:"";
+  position:absolute;
+  inset:auto -5% -55px -5%;
+  height:130px;
+  background:rgba(255,255,255,.13);
+  transform:skewY(-3deg);
+}
+.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;position:relative;z-index:1}
+.brand-logo{max-width:210px;background:#fff;border-radius:12px;padding:10px 16px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.tag{display:inline-block;padding:7px 12px;border:1px solid rgba(255,255,255,.55);border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+h1{margin:42px 0 12px;max-width:1080px;font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-.04em;position:relative;z-index:1}
+.subtitle{max-width:980px;font-size:clamp(17px,2vw,22px);opacity:.96;position:relative;z-index:1}
+main{padding:34px 6vw 70px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:-62px;position:relative;z-index:2}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(215,222,232,.9);border-radius:22px;padding:22px;box-shadow:0 16px 40px rgba(31,41,55,.10);backdrop-filter:blur(10px)}
+.metric{font-size:28px;font-weight:800;color:var(--orange-dark);line-height:1}
+.label{margin-top:8px;color:var(--muted);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+section{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px;box-shadow:0 12px 35px rgba(31,41,55,.06)}
+.section-title{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:26px;line-height:1.15;letter-spacing:-.02em}
+.dot{width:16px;height:16px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 7px rgba(242,118,29,.13);flex:0 0 auto}
+.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:26px}
+.callout{border-left:6px solid var(--orange);background:#fff7ed;padding:18px 20px;border-radius:18px;margin-top:16px}
+.block{border:1px solid var(--line);background:#fbfcfe;border-radius:20px;padding:18px;margin:16px 0}
+.block h3{margin:0 0 8px;color:var(--blue)}
+.pill-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.pill{padding:8px 12px;border-radius:999px;background:var(--slate);color:#344054;font-weight:700;font-size:13px}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center;margin-top:18px}
+.info-card{min-height:170px;border:1px solid var(--line);border-radius:24px;padding:20px;background:linear-gradient(180deg,#fff,#fbfcfe)}
+.info-card h3{margin:0 0 8px;color:var(--orange-dark)}
+.arrow{font-size:34px;color:var(--orange);font-weight:800;text-align:center}
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.matrix .item{border-radius:22px;padding:18px;color:#fff;min-height:160px;position:relative;overflow:hidden}
+.matrix .item:before{content:"";position:absolute;width:110px;height:110px;border-radius:50%;right:-36px;top:-36px;background:rgba(255,255,255,.18)}
+.matrix .item h3{margin:0 0 8px}
+.m1{background:linear-gradient(135deg,#2f5597,#5f84c9)}
+.m2{background:linear-gradient(135deg,#0f766e,#44b3a7)}
+.m3{background:linear-gradient(135deg,#f2761d,#ffb13d)}
+.m4{background:linear-gradient(135deg,#6f42c1,#a77bd9)}
+.m5{background:linear-gradient(135deg,#2f855a,#65b889)}
+.m6{background:linear-gradient(135deg,#8a6a56,#b99c86)}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.link-card{border:1px solid var(--line);border-radius:20px;padding:18px;background:#fff}
+.link-card a{color:var(--blue);font-weight:800;text-decoration:none}
+.link-card p{margin:8px 0 0;color:var(--muted);font-size:14px}
+.footer{margin-top:30px;padding:24px 6vw;color:#fff;background:#1f2937;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.small{font-size:13px;color:var(--muted)}
+@media print{
+  header{padding:24px 28px 34px}
+  main{padding:24px}
+  section,.card{box-shadow:none}
+  .grid,.flow,.links,.two-col,.matrix{break-inside:avoid}
+  body{background:#fff}
+}
+@media (max-width:1000px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .links,.matrix{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg)}
+}
+@media (max-width:640px){
+  .grid,.links,.matrix{grid-template-columns:1fr}
+  .brand{align-items:flex-start;flex-direction:column}
+  section{padding:22px}
+}
+</style>
+</head>
+<body>
+  <div class="topbar"></div>
+  <header>
+    <div class="brand">
+      <span class="tag">Módulo 1 • Aula 1 • Parte 2</span>
+      <img class="brand-logo" src="https://emasp.prefeitura.sp.gov.br/wp-content/uploads/2024/11/logoheaderemasp2.png" alt="Logo EMASP" />
+    </div>
+    <h1>Dados como ativo estratégico para a gestão pública</h1>
+    <p class="subtitle">Como informações bem organizadas podem apoiar decisões, melhorar serviços e gerar valor público.</p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <div class="card"><div class="metric">Dados</div><div class="label">Ativo estratégico</div></div>
+      <div class="card"><div class="metric">Gestão</div><div class="label">Decisão com evidências</div></div>
+      <div class="card"><div class="metric">Valor</div><div class="label">Serviços melhores</div></div>
+      <div class="card"><div class="metric">Módulo 1</div><div class="label">Contexto</div></div>
+    </div>
+
+    <section id="ponto-partida">
+      <h2 class="section-title"><span class="dot"></span>1. Ponto de partida</h2>
+      <p>Imagine uma unidade pública que atende centenas de pessoas por semana. Cada atendimento gera registros: quem foi atendido, qual foi a demanda, quanto tempo levou, qual encaminhamento foi feito e se o problema foi resolvido. Esses registros podem parecer apenas parte da rotina administrativa, mas, quando bem organizados, tornam-se uma fonte poderosa para compreender a realidade, planejar ações e melhorar serviços.</p>
+      <div class="callout">
+        <strong>Ideia central:</strong> dado isolado é apenas registro. Quando tratado, contextualizado e utilizado com responsabilidade, ele se transforma em informação estratégica para a gestão pública.
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>2. O que significa tratar dados como ativo estratégico?</h2>
+      <div class="two-col">
+        <div>
+          <p>Um ativo é algo que possui valor para uma organização. No setor público, os dados ajudam a compreender demandas sociais, acompanhar políticas públicas, distribuir recursos, avaliar resultados, prestar contas e melhorar a experiência do cidadão.</p>
+          <p>Tratar dados como ativo estratégico significa reconhecer que eles precisam ser cuidados ao longo de todo o seu ciclo de vida: coleta, registro, armazenamento, compartilhamento, análise, uso, preservação e descarte.</p>
+        </div>
+        <div class="block">
+          <h3>Dados não são apenas arquivos</h3>
+          <p>Eles representam pessoas, territórios, processos, recursos públicos, serviços prestados e decisões administrativas. Por isso, exigem qualidade, proteção, responsabilidade e governança.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>3. Infográfico: do dado à decisão pública</h2>
+      <div class="flow">
+        <div class="info-card">
+          <h3>Dado</h3>
+          <p>Registro bruto de um fato, evento ou atendimento.</p>
+          <span class="pill">Ex.: 420 solicitações em um mês</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="info-card">
+          <h3>Informação</h3>
+          <p>Dado organizado e contextualizado para responder a uma pergunta.</p>
+          <span class="pill">Ex.: 35% cresceram em uma região</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="info-card">
+          <h3>Decisão</h3>
+          <p>Uso da informação para priorizar ações, corrigir rotas e melhorar serviços.</p>
+          <span class="pill">Ex.: reforçar equipe ou mudar processo</span>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Governança de Dados entra aqui:</strong> ela ajuda a garantir que esse caminho seja confiável, ético, seguro e rastreável.
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>4. Caso fictício: dados para melhorar o atendimento</h2>
+      <div class="two-col">
+        <div>
+          <h3>A situação</h3>
+          <p>Uma secretaria percebe aumento nas reclamações sobre demora no atendimento. A primeira reação seria contratar mais pessoas ou abrir novos canais. Mas, antes disso, a equipe analisa os dados: horários de maior demanda, tipos de solicitação, tempo médio de resposta, regiões mais afetadas e etapas com maior acúmulo.</p>
+        </div>
+        <div>
+          <h3>A decisão</h3>
+          <p>A análise mostra que o problema não era falta de equipe em todos os horários, mas concentração de demandas específicas em dois períodos do dia. Com base nisso, a gestão reorganiza escalas, melhora orientações ao cidadão e acompanha novos indicadores.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Aprendizado:</strong> quando os dados são confiáveis, a gestão evita decisões baseadas apenas em percepção e passa a agir com evidências.
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>5. O que torna um dado estratégico?</h2>
+      <div class="matrix">
+        <div class="item m1"><h3>Relevância</h3><p>Ajuda a responder perguntas importantes para a gestão e para o cidadão.</p></div>
+        <div class="item m2"><h3>Qualidade</h3><p>É completo, atualizado, consistente, preciso e compreensível.</p></div>
+        <div class="item m3"><h3>Contexto</h3><p>Está acompanhado de significado, origem, período, método e responsável.</p></div>
+        <div class="item m4"><h3>Segurança</h3><p>É protegido contra acesso indevido, uso inadequado e exposição desnecessária.</p></div>
+        <div class="item m5"><h3>Disponibilidade</h3><p>Pode ser encontrado e utilizado por quem tem autorização e necessidade legítima.</p></div>
+        <div class="item m6"><h3>Uso responsável</h3><p>Respeita finalidade pública, ética, transparência, LGPD e interesse coletivo.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>6. Dados como apoio à gestão pública</h2>
+      <p>Na Administração Pública, dados podem apoiar diferentes atividades:</p>
+      <div class="pill-list">
+        <span class="pill">Planejamento</span>
+        <span class="pill">Monitoramento de metas</span>
+        <span class="pill">Avaliação de políticas públicas</span>
+        <span class="pill">Transparência</span>
+        <span class="pill">Priorização de recursos</span>
+        <span class="pill">Melhoria de serviços</span>
+        <span class="pill">Gestão de riscos</span>
+        <span class="pill">Prestação de contas</span>
+      </div>
+      <div class="block">
+        <h3>Exemplo prático</h3>
+        <p>Dados sobre frequência escolar, evasão, território, transporte e vulnerabilidade social podem apoiar ações integradas de educação, assistência social e mobilidade. O valor público surge quando os dados deixam de ficar isolados e passam a orientar decisões coordenadas.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>7. Atenção: dado estratégico não é “quanto mais, melhor”</h2>
+      <p>Ter muitos dados não significa necessariamente decidir melhor. O excesso de informações desorganizadas pode gerar confusão, retrabalho e decisões frágeis. O ponto central é ter os dados certos, com qualidade, no momento adequado e com uso responsável.</p>
+      <div class="callout">
+        <strong>Pergunta para reflexão:</strong> em sua área de atuação, quais dados são realmente essenciais para melhorar um serviço ou apoiar uma decisão?
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>8. Fechamento</h2>
+      <p>Dados são ativos estratégicos porque ajudam a Administração Pública a compreender problemas, planejar ações, monitorar resultados, prestar contas e melhorar serviços. Mas esse valor não surge automaticamente. Ele depende de organização, qualidade, segurança, contexto, responsabilidade e governança.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="dot"></span>9. Saiba mais</h2>
+      <div class="links">
+        <div class="link-card">
+          <a href="https://unesdoc.unesco.org/ark:/48223/pf0000394518" target="_blank">UNESCO — Governança de Dados no Setor Público</a>
+          <p>Publicação de referência para compreender dados como elemento estratégico na Administração Pública.</p>
+        </div>
+        <div class="link-card">
+          <a href="https://www.gov.br/governodigital/pt-br/infraestrutura-nacional-de-dados" target="_blank">Infraestrutura Nacional de Dados — Governo Digital</a>
+          <p>Conteúdos sobre dados, interoperabilidade e organização de informações no governo.</p>
+        </div>
+        <div class="link-card">
+          <a href="https://dados.gov.br/" target="_blank">Portal Brasileiro de Dados Abertos</a>
+          <p>Catálogo nacional de conjuntos de dados públicos disponíveis para consulta e reutilização.</p>
+        </div>
+        <div class="link-card">
+          <a href="https://transparencia.prefeitura.sp.gov.br/" target="_blank">Portal da Transparência da Prefeitura de São Paulo</a>
+          <p>Exemplo de disponibilização de informações públicas para controle social e prestação de contas.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    <div><strong>Curso</strong><br/>Governança de Dados no Setor Público</div>
+    <div>EMASP • Lab11 • COTIC • SEGES<br/>Prefeitura de São Paulo</div>
+    <div>Módulo 1 • Aula 1<br/>Dados como ativo estratégico</div>
+  </div>
+</body>
+</html>
